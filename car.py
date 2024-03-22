@@ -1,33 +1,30 @@
 from random import randint
 from time import sleep
 from threading import Thread
-import os
+from tqdm import tqdm
 
 class Car(Thread):
-  winners = []
+  winners = {}
+  position = 0
 
-  def __init__(self, name, speed):
+  def __init__(self, name, speed, color):
     super().__init__()
     self.name = name
     self.speed = speed
+    self.color = color
     self.displacement = 0
-    self.num_of_pauses = 0
 
   def run(self):
+    with tqdm(total=100, desc=self.name, colour=self.color, leave=False, bar_format='{desc:<20}: {bar} {n_fmt}/{total_fmt}', ncols=100) as progress_bar:
+        while self.displacement < 100:
+            self.displacement += self.speed
+            progress_bar.update(self.speed)
 
-    while self.displacement < 100:
-      self.displacement += self.speed
+            if randint(1, 10) == 7:
+                sleep(6)
 
-      if randint(1, 10) == 7:
-        print(f"{self.name}: Tomou pau de 1 sec\n")
-        self.num_of_pauses += 1
-        sleep(6)
+            sleep(2)
 
-      print(f"The {self.name} is in {self.displacement} position")
-
-      # Time between each 100m
-      sleep(2)
-      os.system('c')
-
-    Car.winners.append(self.name)
-    print(f"The {self.name} finished")
+        Car.position += 1
+        Car.winners[self.name] = Car.position
+        

@@ -1,30 +1,35 @@
-from threading import Thread
+from time import sleep
 from car import Car
+from random import randint
+import os
 
+persons = ["Barão Vermelho", "Penelope", "Irmãos Rocha", "Dick Vigarista", "Dupla Sinistra", "Professor Aéreo", "Tomas e Urso", "Peter Perfeito", "Meekley", "Quadrilha da Morte"]
+colors = ["#FF7F50", "#48D1CC", "#DB7093", "#1E90FF", "#D2691E", "#87CEEB", "#DAA520", "#98FB98", "#3CB371", "#008B8B"]
 cars = []
 
-winners = []
+color = 0
+for person in persons:
+  speed = randint(5, 10)
+  cars.append(Car(person, speed, colors[color]))
+  color += 1
 
-car1 = Car("Barão Vermelho", 5)
-car2 = Car("Penelope", 5)
-car3 = Car("Irmãos Rocha", 5)
-car4 = Car("Dick Vigarista", 5)
-car5 = Car("Dupla Sinistra", 5)
-car6 = Car("Professor Aéreo", 5)
-car7 = Car("Tomas e Urso", 5)
-car8 = Car("Peter Perfeito", 5)
-car9 = Car("Meekley", 5)
-car10 = Car("Quadrilha da Morte", 5)
+print("\n############ A CORRIDA VAI COMEÇAR ############\n")
+print("-----------CORREDORES-----------")
 
-cars = [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10]
+for car in cars:
+  print(f"{car.name} -> velocidade: {car.speed}")
 
+sleep(5)
+os.system('cls')
+  
 for car in cars:
   car.start()
 
 for car in cars:
   car.join()
 
-print(Car.winners)
+os.system('cls')
 
-for car in cars:
-  print(f"{car.name}: {car.num_of_pauses}")
+print("-----------RESULTADO-----------")
+for c in Car.winners:
+  print(f"{Car.winners[c]}º lugar: {c}")
