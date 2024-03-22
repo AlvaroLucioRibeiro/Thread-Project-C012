@@ -1,0 +1,5 @@
+# Python env
+.venv/
+
+# VS Code settings
+.vscode/
