@@ -3,6 +3,10 @@ from car import Car
 from random import randint
 import os
 
+def clear_screen():
+    # Função para limpar a tela de forma independente do sistema operacional
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 # Lista de nomes dos participantes da corrida
 persons = ["Barão Vermelho", "Penelope", "Irmãos Rocha", "Dick Vigarista", "Dupla Sinistra", "Professor Aéreo", "Tomas e Urso", "Peter Perfeito", "Meekley", "Quadrilha da Morte"]
 
@@ -13,31 +17,32 @@ cars = []  # Lista para armazenar os objetos Car criados para cada participante
 color = 0  # Índice para acessar a lista de cores
 
 for person in persons:
-  speed = randint(5, 10)  # Gera uma velocidade aleatória para cada carro entre 5 e 10
-  cars.append(Car(person, speed, colors[color]))  # Cria um objeto Car e o adiciona à lista de carros
-  color += 1  # Incrementa o índice de cores para usar a próxima cor disponível
+    speed = randint(6, 10)  # Gera uma velocidade aleatória para cada carro entre 6 e 10
+    cars.append(Car(person, speed, colors[color]))  # Cria um objeto Car e o adiciona à lista de carros
+    color += 1  # Incrementa o índice de cores para usar a próxima cor disponível
 
 print("\n############ A CORRIDA VAI COMEÇAR ############\n")
 print("-----------CORREDORES-----------")
 
 # Exibe os nomes e velocidades dos carros participantes
 for car in cars:
-  print(f"{car.name} -> velocidade: {car.speed}")
+    print(f"{car.name} -> velocidade: {car.speed}")
 
 sleep(5)  # Aguarda 5 segundos antes de começar a corrida
-os.system("cls")  # Limpa a tela do terminal para iniciar a corrida
+clear_screen()  # Limpa a tela do terminal para iniciar a corrida
   
 # Inicia a thread de cada carro, começando a corrida
 for car in cars:
-  car.start()
+    car.start()
 
 # Aguarda a finalização de todas as threads dos carros
 for car in cars:
-  car.join()
+    car.join()
 
-os.system('cls')  # Limpa a tela do terminal para mostrar os resultados
+# Limpa a tela do terminal para mostrar os resultados
+clear_screen()
 
 print("-----------RESULTADO-----------")
 # Exibe o resultado da corrida com a posição e nome de cada carro
 for c in Car.winners:
-  print(f"{Car.winners[c]}º lugar: {c}")
+    print(f"{Car.winners[c]}º lugar: {c}")

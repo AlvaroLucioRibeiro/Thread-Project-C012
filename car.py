@@ -1,6 +1,6 @@
 from random import randint
 from time import sleep
-from threading import Thread
+from threading import Thread, Semaphore, Lock
 from tqdm import tqdm
 
 class Car(Thread):
@@ -13,6 +13,9 @@ class Car(Thread):
     
     winners = {}
     position = 0
+    power_used = False  # Flag para verificar se o poder já foi usado
+    semaphore = Semaphore(1)  # Semáforo para garantir exclusão mútua
+    lock = Lock()  # Lock para garantir que a posição e os vencedores sejam atualizados de forma atômica
 
     def __init__(self, name, speed, color):
         """Inicializa um novo objeto Car.
@@ -45,7 +48,16 @@ class Car(Thread):
                 if randint(1, 10) == 7:
                     sleep(6)
 
+                # Usar semáforo para garantir que apenas um carro receba o poder
+                with Car.semaphore:
+                    if not Car.power_used and randint(1, 20) == 10:
+                        self.speed *= 2
+                        Car.power_used = True
+                        tqdm.write(f"{self.name} pegou o poder e teve a velocidade dobrada!")
+
                 sleep(2)  # Simula a passagem do tempo entre os movimentos
 
-            Car.position += 1
-            Car.winners[self.name] = Car.position
+            with Car.lock:
+                if self.name not in Car.winners:
+                    Car.position += 1
+                    Car.winners[self.name] = Car.position
