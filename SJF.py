@@ -30,7 +30,7 @@ def SJF(cars: list[Car]) -> list[Car]:
 
         schedule.append(car)
 
-    print(f"Average Waiting Time: {cumulative_time / len(schedule)} Units of Time")
-    print(f"Total Waiting Time: {cumulative_time} Units of Time")
+    print(f"Average Waiting Time: {format(cumulative_time / len(schedule), ".2f")} Units of Time")
+    print(f"Total Waiting Time: {format(cumulative_time, ".2f")} Units of Time\n\n")
 
     return schedule

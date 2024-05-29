@@ -29,7 +29,7 @@ def FCFS(tasks: list[Car]) -> list[Car]:
 
     schedules.append(task)
 
-  print(f"Average Waiting Time: {cumulative_time / len(schedules)} Units of Time")
-  print(f"Total Waiting Time: {cumulative_time} Units of Time")
+  print(f"Average Waiting Time: {format(cumulative_time / len(schedules), ".2f")} Units of Time")
+  print(f"Total Waiting Time: {format(cumulative_time, ".2f")} Units of Time\n\n")
 
   return schedules

@@ -22,18 +22,18 @@ for person in persons:
     cars.append(Car(person, speed, colors[color]))  # Cria um objeto Car e o adiciona à lista de carros
     color += 1  # Incrementa o índice de cores para usar a próxima cor disponível
 
+carsFCFS = SJF(cars)
+
 print("\n############ A CORRIDA VAI COMEÇAR ############\n")
 print("-----------CORREDORES-----------")
-
-carsFCFS = SJF(cars)
 
 # Exibe os nomes e velocidades dos carros participantes
 for car in carsFCFS:
     print(f"{car.name} -> velocidade: {car.speed}")
 
 sleep(5)  # Aguarda 5 segundos antes de começar a corrida
-clear_screen()  # Limpa a tela do terminal para iniciar a corrida
-  
+#clear_screen()  # Limpa a tela do terminal para iniciar a corrida
+
 # Inicia a thread de cada carro, começando a corrida
 for car in carsFCFS:
     car.start()
