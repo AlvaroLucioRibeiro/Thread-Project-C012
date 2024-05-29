@@ -12,6 +12,7 @@ class Car(Thread):
     """
     
     winners = {}
+    countID = 0
     position = 0
     power_used = False  # Flag para verificar se o poder já foi usado
     semaphore = Semaphore(1)  # Semáforo para garantir exclusão mútua
@@ -30,6 +31,8 @@ class Car(Thread):
         self.speed = speed
         self.color = color
         self.displacement = 0
+        self.id = Car.countID
+        Car.countID += 1
 
     def run(self):
         """Simula a corrida do carro.

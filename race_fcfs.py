@@ -2,6 +2,7 @@ from time import sleep
 from car import Car
 from random import randint
 import os
+from FCFS import FCFS
 
 def clear_screen():
     # Função para limpar a tela de forma independente do sistema operacional
@@ -24,19 +25,21 @@ for person in persons:
 print("\n############ A CORRIDA VAI COMEÇAR ############\n")
 print("-----------CORREDORES-----------")
 
+carsFCFS = FCFS(cars)
+
 # Exibe os nomes e velocidades dos carros participantes
-for car in cars:
+for car in carsFCFS:
     print(f"{car.name} -> velocidade: {car.speed}")
 
 sleep(5)  # Aguarda 5 segundos antes de começar a corrida
 clear_screen()  # Limpa a tela do terminal para iniciar a corrida
   
 # Inicia a thread de cada carro, começando a corrida
-for car in cars:
+for car in carsFCFS:
     car.start()
 
 # Aguarda a finalização de todas as threads dos carros
-for car in cars:
+for car in carsFCFS:
     car.join()
 
 # Limpa a tela do terminal para mostrar os resultados
