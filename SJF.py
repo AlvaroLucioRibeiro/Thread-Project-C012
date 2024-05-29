@@ -25,7 +25,7 @@ def SJF(cars: list[Car]) -> list[Car]:
         burst_time = 100 / car.speed
 
         # Calculates waiting time based on accumulated displacement
-        #car.waiting_time = cumulative_time
+        car.waiting_time = cumulative_time
         cumulative_time += burst_time
 
         schedule.append(car)
